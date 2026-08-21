@@ -1,24 +1,54 @@
+# flake.nix
+# Based on https://devenv.sh/guides/using-with-flake-parts/
 {
   description = "bootdev k8s course";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs = {
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    devenv.url = "github:cachix/devenv";
+    nixpkgs.url = "github:cachix/devenv-nixpkgs/rolling";
+  };
 
   outputs =
-    { self, nixpkgs }:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      devShells.${system}.default = pkgs.mkShell {
-        packages = with pkgs; [
-          kubectl
-          minikube
-        ];
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
 
-        shellHook = ''
-          export KUBECONFIG="$PWD/.kubeconfig"
-        '';
-      };
+      imports = [
+        inputs.devenv.flakeModule
+      ];
+
+      systems = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
+
+      perSystem =
+        {
+          config,
+          pkgs,
+          ...
+        }:
+        {
+          devenv.shells.default = {
+
+            env = {
+              KUBECONFIG = "${config.devenv.shells.default.devenv.root}/.kubeconfig";
+            };
+
+            # https://devenv.sh/reference/options/
+            packages = with pkgs; [
+              nixfmt
+              nil
+              kubectl
+              minikube
+              devenv
+            ];
+
+            # enterShell = ''
+            #   echo "HELLO WORLD"
+            # '';
+          };
+        };
     };
 }

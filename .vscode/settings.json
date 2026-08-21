@@ -1,0 +1,25 @@
+// .vscode/settings.json
+{
+    "nix.enableLanguageServer": true,
+    "nix.serverPath": [
+        "devenv",
+        "lsp"
+    ],
+    // Regenerate this block with `devenv lsp --print-config` whenever
+    // devenv.nix / devenv.yaml / devenv.lock change - nixd pulls its config
+    // from here via workspace/configuration; it does not get it from
+    // `devenv lsp` automatically, so an empty {} leaves nixd unable to find
+    // nixpkgs at all (that's what was crashing/erroring on every request).
+    "nix.serverSettings": {
+        "nixd": {}
+    }
+    // "nix.serverSettings": {
+    //     "nil": {
+    //         "formatting": {
+    //             "command": [
+    //                 "nixfmt"
+    //             ],
+    //         },
+    //     },
+    // }
+}
