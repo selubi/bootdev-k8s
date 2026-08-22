@@ -16,6 +16,7 @@
     git
     kubectl
     minikube
+    bootdev-cli
   ];
 
   # https://devenv.sh/languages/
