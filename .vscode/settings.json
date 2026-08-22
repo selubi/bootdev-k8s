@@ -28,5 +28,8 @@
                 }
             }
         }
+    },
+    "yaml.schemas": {
+        "kubernetes": "k8s/*.yaml"
     }
 }
