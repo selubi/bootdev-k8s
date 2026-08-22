@@ -13,6 +13,7 @@
   packages = with pkgs; [
     nixfmt
     nil
+    git
     kubectl
     minikube
   ];

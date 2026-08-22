@@ -2,10 +2,25 @@
 
 ## Environment Setup
 
-1. Install [`devenv`](https://devenv.sh/getting-started/) and [enable auto activation](https://devenv.sh/auto-activation/).
+This repo uses [`devenv`](https://devenv.sh/) for tooling. After setup, all the required CLI tools like `nixfmt`, etc. are available automatically when you `cd` in.
 
-2. Allow devenv activation for this folder
+1. Install a `nix` distribution if you don't have one already. The snippet below will install [Determinate Nix](https://docs.determinate.systems/).
 
     ```bash
-    devenv allow
+    curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+    ```
+
+2. Install `devenv` and `direnv`. If you manage packages
+   declaratively (home-manager, nix-darwin, NixOS), add them there instead.
+
+    ```bash
+    nix profile add nixpkgs#devenv nixpkgs#direnv
+    ```
+
+3. [Hook `direnv` into your shell](https://direnv.net/docs/hook.html), if you haven't. Restart your shell afterward.
+
+4. Allow `direnv` activation at the repo root.
+
+    ```bash
+    direnv allow
     ```
