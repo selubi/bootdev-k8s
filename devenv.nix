@@ -1,10 +1,13 @@
 {
   pkgs,
+  config,
   ...
 }:
 {
   # https://devenv.sh/basics/
-  env.GREET = "devenv";
+  env = {
+    KUBECONFIG = "${config.devenv.root}/.kubeconfig";
+  };
 
   # https://devenv.sh/packages/
   packages = with pkgs; [
