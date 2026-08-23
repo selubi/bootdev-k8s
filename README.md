@@ -24,3 +24,17 @@ This repo uses [`devenv`](https://devenv.sh/) for tooling. After setup, all the 
     ```bash
     direnv allow
     ```
+
+## Notes on tunneling
+
+```bash
+minikube tunnel -c
+```
+
+Then you check the gateway IP at
+
+```bash
+kubectl describe gateway app-gateway
+```
+
+If it changes, also change the `/etc/hosts`.
