@@ -3,7 +3,7 @@ kind: Gateway
 metadata:
   name: app-gateway
 spec:
-  gatewayClassName: app-gateway
+  gatewayClassName: app-gatewayclass
   listeners:
     - name: http
       port: 80
